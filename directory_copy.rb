@@ -1,17 +1,24 @@
 def input_students
-  puts "Please enter the name of the students"
+  puts "Please enter details of the students"
   puts "To finish, just hit return twice"
   #create an empty array
   students = []
-  #gets the first name"
-  name=gets.chomp
-  #while the anme is not empty repeat this code
-  while !name.empty? do
-    #add the student hash to the array
-    students<<{name: name,cohort: :november}
-    puts "Now we have #{students.count} students"
-    # get another name
+  while true do
+    puts "Name of the student"
     name = gets.chomp
+    #while the name is not empty repeat this code
+    if name.empty?
+      break
+    end
+    puts "Hobby"
+    hobby = gets.chomp
+    puts"Height of the student"
+    height = gets.chomp
+    puts"Country"
+    country = gets.chomp
+    #add the student hash to the array
+    students<<{name: name,hobby: hobby, height: height, country: country, cohort: :november}
+    puts "Now we have #{students.count} students"
   end
   #return the ararys of students
   students
@@ -24,7 +31,7 @@ end
 def print(students)
   count = 0
   while count < students.length
-    puts "#{students[count][:name]} (#{students[count][:cohort]} cohort)"
+    puts "Name: #{students[count][:name]}, #{students[count][:cohort]} Cohort, Hobby: #{students[count][:hobby]}, Height: #{students[count][:height]}, Country: #{students[count][:country]}"
     count+=1
   end
 end
