@@ -22,8 +22,10 @@ def print_header
   puts "--------------"
 end
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length < 12
+  count = 0
+  while count < students.length
+    puts "#{students[count][:name]} (#{students[count][:cohort]} cohort)"
+    count+=1
   end
 end
 def print_footer(names)
