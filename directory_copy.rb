@@ -1,6 +1,6 @@
 def input_students
-  puts "Please enter details of the students"
-  puts "To finish, just hit return twice"
+  puts "Please enter details of the students".center(50)
+  puts "To finish, just hit return twice".center(50)
   #create an empty array
   students = []
   while true do
@@ -25,8 +25,8 @@ def input_students
 end
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "--------------"
+  puts "The students of Villains Academy".center(50)
+  puts "--------------".center(50)
 end
 def print(students)
   count = 0
@@ -36,7 +36,7 @@ def print(students)
   end
 end
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{names.count} great students".center(50)
 end
 #nothing happens until we call the methods
 students = input_students
