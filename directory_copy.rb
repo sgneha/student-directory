@@ -32,11 +32,17 @@ def print_header
   puts "--------------".center(50)
 end
 def print(students)
-  count = 0
-  while count < students.length
-    puts "Name: #{students[count][:name]}, #{students[count][:cohort]} Cohort, Hobby: #{students[count][:hobby]}, Height: #{students[count][:height]}, Country: #{students[count][:country]}"
-    count+=1
-  end
+  students.sort_by!{|student| student[:cohort]}
+  students.each do|student|
+    puts "#{student[:cohort]} Cohort"
+    puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}"
+    end
+
+  #  count = 0
+#  while count < students.length
+#    puts "Name: #{students[count][:name]}, #{students[count][:cohort]} Cohort, Hobby: #{students[count][:hobby]}, Height: #{students[count][:height]}, Country: #{students[count][:country]}"
+#    count+=1
+#  end
 end
 def print_footer(names)
   puts "Overall, we have #{names.count} great students".center(50)
