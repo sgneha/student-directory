@@ -21,7 +21,11 @@ def input_students
     cohort = "January" if cohort == ""
     #add the student hash to the array
     students<<{name: name,hobby: hobby, height: height, country: country, cohort: cohort.to_sym}
-    puts "Now we have #{students.count} students"
+    if students.length ==1
+      puts "Now we have 1 student"
+      else
+      puts "Now we have #{students.count} students"
+    end
   end
   #return the ararys of students
   students
