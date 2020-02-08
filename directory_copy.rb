@@ -32,13 +32,18 @@ def print_header
   puts "--------------".center(50)
 end
 def print(students)
-  students.sort_by!{|student| student[:cohort]}
+  puts "Specify Cohort or All"
+  input = gets.chomp
+#  students.sort_by!{|student| student[:cohort]}
   students.each do|student|
-    puts "#{student[:cohort]} Cohort"
-    puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}"
+    if input.to_sym == student[:cohort]
+    #   puts "#{student[:cohort]} Cohort"
+      puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}"
+    elsif input == "All"
+      puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}, #{student[:cohort]} Cohort"
     end
-
-  #  count = 0
+  end
+#  count = 0
 #  while count < students.length
 #    puts "Name: #{students[count][:name]}, #{students[count][:cohort]} Cohort, Hobby: #{students[count][:hobby]}, Height: #{students[count][:height]}, Country: #{students[count][:country]}"
 #    count+=1
@@ -51,5 +56,4 @@ end
 students = input_students
 print_header
 print(students)
-print_footer(students)
-
+#print_footer(students)
