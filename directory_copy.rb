@@ -16,8 +16,11 @@ def input_students
     height = gets.chomp
     puts"Country"
     country = gets.chomp
+    puts"Cohort"
+    cohort = gets.chomp
+    cohort = "January" if cohort == ""
     #add the student hash to the array
-    students<<{name: name,hobby: hobby, height: height, country: country, cohort: :november}
+    students<<{name: name,hobby: hobby, height: height, country: country, cohort: cohort.to_sym}
     puts "Now we have #{students.count} students"
   end
   #return the ararys of students
