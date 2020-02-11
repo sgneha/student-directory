@@ -21,11 +21,11 @@ def input_students
     cohort = "January" if cohort == ""
     #add the student hash to the array
     students<<{name: name,hobby: hobby, height: height, country: country, cohort: cohort.to_sym}
-    if students.length ==1
-      puts "Now we have 1 student"
-      else
-      puts "Now we have #{students.count} students"
-    end
+    # if students.length ==1
+    #   puts "Now we have 1 student"
+    #   else
+    #   puts "Now we have #{students.count} students"
+    # end
   end
   #return the ararys of students
   students
@@ -36,16 +36,23 @@ def print_header
   puts "--------------".center(50)
 end
 def print(students)
-  puts "Specify Cohort or All"
-  input = gets.chomp
-#  students.sort_by!{|student| student[:cohort]}
+  # puts "Specify Cohort or All"
+  # input = gets.chomp
+  students.sort_by!{|student| student[:cohort]}
+  prev_cohort = ''
   students.each do|student|
-    if input.to_sym == student[:cohort]
-    #   puts "#{student[:cohort]} Cohort"
-      puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}"
-    elsif input == "All"
-      puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}, #{student[:cohort]} Cohort"
+    if prev_cohort != student[:cohort]
+       prev_cohort = student[:cohort]
+       puts "#{student[:cohort]} Cohort"
     end
+    puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}"
+  # students.each do|student|
+  #   if input.to_sym == student[:cohort]
+  #   #   puts "#{student[:cohort]} Cohort"
+  #     puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}"
+  #   elsif input == "All"
+  #     puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}, #{student[:cohort]} Cohort"
+  #   end
   end
 #  count = 0
 #  while count < students.length
@@ -60,4 +67,4 @@ end
 students = input_students
 print_header
 print(students)
-#print_footer(students)
+print_footer(students)
