@@ -69,10 +69,10 @@ def print_footer(names)
 end
 #nothing happens until we call the methods
 students = input_students
-if students.count == 0
-  puts "There are no students in the List"
-  exit
-end
+# if students.count == 0
+#   puts "There are no students in the List"
+#   exit
+# end
 print_header
 print(students)
 print_footer(students)
