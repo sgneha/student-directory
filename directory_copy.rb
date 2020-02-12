@@ -5,7 +5,7 @@ def input_students
   students = []
   while true do
     puts "Name of the student"
-    name = gets.chomp
+    name = gets.strip
     #while the name is not empty repeat this code
     if name.empty?
       break
@@ -13,11 +13,11 @@ def input_students
     puts "Hobby"
     hobby = gets.strip
     puts"Height of the student"
-    height = gets.chomp
+    height = gets.chop
     puts"Country"
-    country = gets.chomp
+    country = gets.chop
     puts"Cohort"
-    cohort = gets.chomp
+    cohort = gets.chop
     cohort = "January" if cohort == ""
     #add the student hash to the array
     students<<{name: name,hobby: hobby, height: height, country: country, cohort: cohort.to_sym}
@@ -38,22 +38,22 @@ end
 def print(students)
 # puts "Specify Cohort or All"
 # input = gets.chomp
-#  students.sort_by!{|student| student[:cohort]}
-#  prev_cohort = ''
-#   students.each do|student|
-#     if prev_cohort != student[:cohort]
-#        prev_cohort = student[:cohort]
-#        puts "#{student[:cohort]} Cohort"
-#     end
-#     puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}"
-# end
+ students.sort_by!{|student| student[:cohort]}
+ prev_cohort = ''
   students.each do|student|
-    if input.to_sym == student[:cohort]
-      puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}"
-    elsif input == "All"
-      puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}, #{student[:cohort]} Cohort"
+    if prev_cohort != student[:cohort]
+       prev_cohort = student[:cohort]
+       puts "#{student[:cohort]} Cohort"
     end
-  end
+    puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}"
+end
+  # students.each do|student|
+  #   if input.to_sym == student[:cohort]
+  #     puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}"
+  #   elsif input == "All"
+  #     puts "Name: #{student[:name]}, Hobby: #{student[:hobby]}, Height: #{student[:height]}, Country: #{student[:country]}, #{student[:cohort]} Cohort"
+  #   end
+  # end
 #  count = 0
 #  while count < students.length
 #    puts "Name: #{students[count][:name]}, #{students[count][:cohort]} Cohort, Hobby: #{students[count][:hobby]}, Height: #{students[count][:height]}, Country: #{students[count][:country]}"
@@ -61,7 +61,11 @@ def print(students)
 #  end
 end
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students".center(50)
+  if names.count == 1
+    puts "Overall, we have #{names.count} great student".center(50)
+  else
+    puts "Overall, we have #{names.count} great students".center(50)
+  end
 end
 #nothing happens until we call the methods
 students = input_students
@@ -71,4 +75,4 @@ if students.count == 0
 end
 print_header
 print(students)
-#print_footer(students)
+print_footer(students)
