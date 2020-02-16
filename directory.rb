@@ -9,7 +9,7 @@ end
 def print_menu
     puts "1. Input the students"
     puts "2. Show the students"
-    puts "3. Save the list to #{@default} "
+    puts "3. Save the list to #{@default}"
     puts "4. Load the list from #{@default}"
     puts "9. Exit"
 end
@@ -21,8 +21,10 @@ def process(selection)
       show_students
     when "3"
       save_students
+      puts "saved"
     when "4"
       load_students
+      puts "Loaded"
     when "9"
       exit
     else
