@@ -1,4 +1,5 @@
 @students = []
+@default = "students.csv"
 def interactive_menu
   loop do
     print_menu
@@ -8,8 +9,8 @@ end
 def print_menu
     puts "1. Input the students"
     puts "2. Show the students"
-    puts "3. Save the list to students.csv "
-    puts "4. Load the list from students.csv"
+    puts "3. Save the list to #{@default} "
+    puts "4. Load the list from #{@default}"
     puts "9. Exit"
 end
 def process(selection)
@@ -79,7 +80,7 @@ def print_footer
   end
 end
 def save_students
-  file = File.open("students.csv", "w")
+  file = File.open(@default, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -87,7 +88,7 @@ def save_students
   end
   file.close
 end
-def load_students(filename ="students.csv")
+def load_students(filename = @default)
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
@@ -98,9 +99,12 @@ def load_students(filename ="students.csv")
 end
 def try_load_students
   filename = ARGV.first
-    if filename.nil? || File.exists?(filename)
-        puts "No file entered or #{filename} does not exist"
-        filename = "students.csv"
+    if filename.nil?
+      puts "No file entered"
+      filename = @default
+    elsif !File.exists?(filename)
+      puts "#{filename} does not exist"
+      exit
     end
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
