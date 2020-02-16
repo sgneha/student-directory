@@ -1,3 +1,4 @@
+require "csv"
 @students = []
 @default = "students.csv"
 @user_file = ""
@@ -80,7 +81,7 @@ def print_header
 end
 def print_student_list
   @students.each do|student|
-    puts "Name: #{student[:name]} (#{student[:cohort]} Cohort)"
+    puts "#{student[:name]} (#{student[:cohort]} Cohort)"
   end
 end
 def print_footer
@@ -93,22 +94,19 @@ def print_footer
   end
 end
 def save_students
-  File::open(@user_file, "w") do |file|
+  # File::open(@user_file, "w") do |file|
+    CSV.open(@user_file, "w") do |file|
     @students.each do |student|
-      student_data = [student[:name], student[:cohort]]
-      csv_line = student_data.join(",")
-      file.puts csv_line
+      file << [student[:name], student[:cohort]]
     end
   end
 end
 def load_students(filename = @user_file)
   @students = []
-  File::open(filename, "r") do |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(',')
-      adding_students(name,cohort)
+  # File::open(filename, "r") do |file|
+    CSV.foreach(filename, "r") do |row|
+      adding_students(row[0],row[1])
     end
-  end
 end
 def try_load_students
   filename = ARGV.first
