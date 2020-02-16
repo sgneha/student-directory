@@ -93,21 +93,22 @@ def print_footer
   end
 end
 def save_students
-  file = File.open(@user_file, "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  File::open(@user_file, "w") do |file|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
 end
 def load_students(filename = @user_file)
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    adding_students(name,cohort)
+  @students = []
+  File::open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(',')
+      adding_students(name,cohort)
+    end
   end
-  file.close
 end
 def try_load_students
   filename = ARGV.first
