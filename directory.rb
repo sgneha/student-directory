@@ -46,13 +46,18 @@ def input_students
     puts"Cohort"
     cohort = STDIN.gets.chop
     cohort = "January" if cohort == ""
-    @students<<{name: name, cohort: cohort.to_sym}
+    adding_students(name,cohort)
+    # @students<<{name: name, cohort: cohort.to_sym}
     if @students.length ==1
       puts "Now we have 1 student"
       else
       puts "Now we have #{@students.count} students"
     end
   end
+end
+
+def adding_students(name,cohort)
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 def print_header
@@ -86,7 +91,8 @@ def load_students(filename ="students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    adding_students(name,cohort)
+    # @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
