@@ -1,5 +1,6 @@
 @students = []
 @default = "students.csv"
+@user_file = ""
 def interactive_menu
   loop do
     print_menu
@@ -9,8 +10,8 @@ end
 def print_menu
     puts "1. Input the students"
     puts "2. Show the students"
-    puts "3. Save the list to #{@default}"
-    puts "4. Load the list from #{@default}"
+    puts "3. Save the list to file"
+    puts "4. Load the list from file"
     puts "9. Exit"
 end
 def process(selection)
@@ -20,9 +21,11 @@ def process(selection)
     when "2"
       show_students
     when "3"
+      user_input_file
       save_students
       puts "saved"
     when "4"
+      user_input_file
       load_students
       puts "Loaded"
     when "9"
@@ -31,6 +34,15 @@ def process(selection)
       puts "I don't know what you meant, try again"
     end
 end
+def user_input_file
+    puts "choose file to use"
+    @user_file = STDIN.gets.chomp
+    if @user_file.nil? || !File.exists?(@user_file)
+      puts "File does not exist, using #{@default}"
+      @user_file = @default
+    end
+end
+
 def show_students
   print_header
   print_student_list
@@ -50,7 +62,6 @@ def input_students
     cohort = STDIN.gets.chop
     cohort = "January" if cohort == ""
     adding_students(name,cohort)
-    # @students<<{name: name, cohort: cohort.to_sym}
     if @students.length ==1
       puts "Now we have 1 student"
       else
@@ -82,7 +93,7 @@ def print_footer
   end
 end
 def save_students
-  file = File.open(@default, "w")
+  file = File.open(@user_file, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -90,12 +101,11 @@ def save_students
   end
   file.close
 end
-def load_students(filename = @default)
+def load_students(filename = @user_file)
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     adding_students(name,cohort)
-    # @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
 end
@@ -110,9 +120,6 @@ def try_load_students
     end
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
-  end
-  # else
-  #   puts"Sorry, #{filename} doesn't exist."
-  #   exit
+end
 try_load_students
 interactive_menu
